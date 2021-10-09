@@ -1,32 +1,74 @@
 <template>
-  <div id="app">
-    <div id="nav">
+    <div id="app">
+        <!--  <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/Home">About</router-link>
+    </div> -->
+        <router-view />
     </div>
-    <router-view/>
-  </div>
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap');
+
+:root {
+    --dark-blue: #25abe6;
+    --light-blue: #47cdff;
 }
 
-#nav {
-  padding: 30px;
+body,
+ul,
+li,
+h1,
+h2,
+p {
+    padding: 0px;
+    margin: 0px;
+}
+ul {
+    list-style: none;
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #e5e5e5;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+}
+img {
+    max-width: 100%;
+    display: block;
+}
+label {
+    background-color: #fff;
+    padding: 0 8px;
+    font-weight: 500;
+    color: var(--light-blue);
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+input {
+    border-radius: 0px;
+    border: 2px solid var(--light-blue);
+    border-radius: 10px;
+}
+button {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.btn-dark {
+    background: var(--light-blue);
+    box-shadow: 0px 4px 0px var(--dark-blue);
+    border-radius: 20px;
+    border: none;
+    color: #fff;
+}
+.btn-light {
+    background: #ffffff;
+    border: 1px solid var(--light-blue);
+    box-shadow: 0px 4px 0px var(--dark-blue);
+    border-radius: 20px;
+    color: var(--dark-blue);
 }
 </style>
