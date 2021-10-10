@@ -55,6 +55,7 @@ input {
 button {
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .btn-dark {
