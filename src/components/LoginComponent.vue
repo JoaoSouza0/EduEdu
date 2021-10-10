@@ -3,20 +3,22 @@
         <div class="login-container-component">
             <img src="../assets/logo.png" alt="EduEdu Logo" />
             <div class="inputs-container">
-                <div>
-                    <label for="email">Email</label>
-                    <input type="text" name="email" id="email" />
-                    <img src="../assets/icons/icon_email.png" alt="" />
-                </div>
-                <div>
-                    <label for="password">Senha</label>
-                    <input type="password" name="password" id="password" />
-                    <img src="../assets/icons/icon_password.svg" alt="" />
-                </div>
+                <form action="">
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" />
+                        <img src="../assets/icons/icon_email.png" alt="" />
+                    </div>
+                    <div>
+                        <label for="password">Senha</label>
+                        <input type="password" name="password" id="password" />
+                        <img src="../assets/icons/icon_password.svg" alt="" />
+                    </div>
+                </form>
             </div>
             <div class="btn-container">
-                <button  class="btn-dark" type="submit">Login</button>
-                <button  class="btn-light" type="submit">Esqueci Senha</button>
+                <button class="btn-dark" type="submit">Login</button>
+                <button class="btn-light" type="submit">Esqueci Senha</button>
             </div>
         </div>
         <div class="directive-container"></div>
