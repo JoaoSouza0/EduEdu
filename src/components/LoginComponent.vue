@@ -26,8 +26,20 @@
 </template>
 
 <script>
+import { student } from '../firebase/index.js';
+import { getDocs } from 'firebase/firestore/lite';
+
 export default {
-    name: 'LoginComponent'
+    name: 'LoginComponent',
+    methods: {
+        async getUsersData() {
+            const students = await getDocs(student);
+            console.log(students.docs.map((item) => item.data()));
+        }
+    },
+    created() {
+        this.getUsersData();
+    }
 };
 </script>
 
