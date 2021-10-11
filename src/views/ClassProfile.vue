@@ -9,7 +9,7 @@
                     <button type="submit" class="btn-dark filter">Ano</button>
                 </div>
             </div>
-            <button class="btn-dark btn-add-aluno">＋ Adicionar novo aluno</button>
+            <router-link to="/Home/CreateClass" class="btn-dark btn-add-aluno">＋ Adicionar novo aluno</router-link>
         </div>
     </section>
 </template>
@@ -44,6 +44,8 @@ export default {
     width: 330px;
     font-size: 22px;
     font-weight: bold;
+    text-align: center;
+    line-height: 2;
 }
 
 .filters-container {
