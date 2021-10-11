@@ -7,6 +7,7 @@
                 <button
                     type="submit"
                     class="left filter"
+                    id="left"
                     :class="{ 'btn-dark': active, 'btn-light': desactive }"
                     @click="filterBy('name')"
                 >
@@ -14,9 +15,11 @@
                 </button>
                 <button
                     type="submit"
+                    id="right"
                     class="right filter"
                     :class="{ 'btn-light': active, 'btn-dark': desactive }"
-                    @click="filterBy('year')">
+                    @click="filterBy('year')"
+                >
                     Ano
                 </button>
             </div>
@@ -30,21 +33,38 @@ export default {
     name: 'FilterStudents',
     data: () => ({
         seachStudent: '',
-        desactive: false,
-        active: true
+        desactive: true,
+        active: false
     }),
     watch: {
-        seachStudent() {
-            if (this.seachStudent.length > 2) {
-                console.log(this.seachStudent);
-            }
+        seachStudent(nameStudent) {
+            this.searchStudent(nameStudent);
+        }
+    },
+    computed: {
+        router() {
+            return { ...this.$route.query };
         }
     },
     methods: {
-        filterBy(value) {
-            this.desactive = !this.desactive;
-            this.active = !this.active;
-            console.log(value);
+        async filterBy(value) {
+            if (value === 'name') {
+                this.desactive = false;
+                this.active = true;
+            }
+            if (value === 'year') {
+                this.desactive = true;
+                this.active = false;
+            }
+            if (!(this.$route.query.filter === value))
+                await this.$router.push({ query: { ...this.router, filter: value } });
+        },
+        async searchStudent(nameStudent) {
+            if (nameStudent) {
+                await this.$router.push({ query: { ...this.router, name: nameStudent } });
+            } else {
+                await this.$router.push({ query: {} });
+            }
         }
     }
 };
@@ -54,7 +74,7 @@ export default {
 .input-filters {
     padding: 31px 0;
     background-color: #fff;
-    width: 1258px;
+    width: 1260px;
     margin: 47px auto;
     border: 1px solid #e1e1e1;
     box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.1);
