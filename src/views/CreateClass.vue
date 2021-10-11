@@ -1,7 +1,7 @@
 <template>
     <section>
         <StudentForm>
-            <button class="btn-dark add-class">Adicionar aluno</button>
+            <button class="btn-dark add-class" @click="submitForm">Adicionar aluno</button>
         </StudentForm>
     </section>
 </template>
@@ -12,6 +12,11 @@ export default {
     name: 'CreateClass',
     components: {
         StudentForm
+    },
+    methods:{
+        async submitForm(){
+            await this.$store.dispatch("createStudent", this.$store.state.student);
+        }
     }
 };
 </script>
