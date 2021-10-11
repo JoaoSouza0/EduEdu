@@ -47,14 +47,12 @@ export default {
 </script>
 
 <style scoped>
-
-
 .navigation-container {
-    min-width: 550px;
+    min-width: 350px;
     background-color: #ffff;
-    margin-right: 10px;
+    margin-right: 5px;
     box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .img-container img {
@@ -63,24 +61,23 @@ export default {
 }
 
 .navigation a {
-    width: 91%;
+    width: 93%;
     display: flex;
     align-items: center;
-    padding: 29px 0 29px 51px;
-    margin-bottom: 30px;
+    padding: 15px 0 15px 25px;
+    margin-bottom: 15px;
 }
 .navigation li img {
-    padding: 0 30px;
+    padding: 0 15px;
 }
 
 .navigation a {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 16px;
     color: #cacaca;
 }
-nav a.router-link-exact-active {
+nav a.router-link-active {
     background-color: var(--light-blue);
     color: #fff;
 }
-
 </style>
