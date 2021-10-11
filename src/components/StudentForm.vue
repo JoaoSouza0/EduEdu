@@ -18,12 +18,12 @@
             <div class="inputs">
                 <div>
                     <label for="name">Nome Completo</label>
-                    <input type="text" class="input-form" name="name" id="name" />
+                    <input type="text" v-model="name" class="input-form" name="name" id="name" />
                     <img class="icon-input" src="../assets/icons/icon_user.png" alt="" />
                 </div>
                 <div>
                     <label for="school">Escola</label>
-                    <input type="text" class="input-form" name="school" id="school" />
+                    <input type="text" v-model="school" class="input-form" name="school" id="school" />
                     <img class="icon-input" src="../assets/icons/icon_hat.png" alt="" />
                 </div>
             </div>
@@ -39,6 +39,7 @@
                             <output>3</output>
                         </div>
                         <input
+                            v-model="yearSchool"
                             type="range"
                             class="range"
                             name="year-school"
@@ -55,7 +56,7 @@
                 </div>
             </div>
             <div class="checkbox-information">
-                <input type="checkbox" name="check" id="check" />
+                <input v-model="autorization" type="checkbox" name="check" id="check" />
                 <label for="check"
                     >Eu autorizo o EduEdu a coletar e processar os daos do meu filho(a) conforme a politica de
                     privacidade</label
@@ -71,6 +72,40 @@
 <script>
 export default {
     name: 'StudentForm',
+    computed: {
+        name: {
+            get() {
+                return this.$store.state.student.name;
+            },
+            set(value) {
+                this.$store.commit('UPDATE_STUDENT', { name: value });
+            }
+        },
+        school: {
+            get() {
+                return this.$store.state.student.school;
+            },
+            set(value) {
+                this.$store.commit('UPDATE_STUDENT', { school: value });
+            }
+        },
+        yearSchool: {
+            get() {
+                return this.$store.state.student.yearSchool;
+            },
+            set(value) {
+                this.$store.commit('UPDATE_STUDENT', { yearSchool: value });
+            }
+        },
+        autorization: {
+            get() {
+                return this.$store.state.student.autorization;
+            },
+            set(value) {
+                this.$store.commit('UPDATE_STUDENT', { autorization: value });
+            }
+        },
+    },
     methods: {
         loadImg(e) {
             const fr = new FileReader();
