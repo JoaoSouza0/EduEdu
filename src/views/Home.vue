@@ -7,7 +7,7 @@
             <nav class="navigation">
                 <ul>
                     <li class="nav-item" v-for="({ name }, index) in navItens" :key="index">
-                        <router-link to="/home/Page">
+                        <router-link to="/Home/ClassProfile">
                             <img src="../../src/assets/icons/icon_doc.png" alt="sas" />
                             {{ name }}
                         </router-link>
