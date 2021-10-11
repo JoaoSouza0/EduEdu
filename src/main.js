@@ -5,6 +5,13 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+Vue.filter('schoolYear', value => {
+
+  value = String(value)
+  if (value)
+    return (`${value}º ano`)
+
+})
 new Vue({
   router,
   store,
