@@ -5,6 +5,7 @@ import Login from '../views/Login.vue';
 import ClassProfile from '../views/ClassProfile.vue';
 import CreateClass from '../views/CreateClass.vue';
 import NotFound from '../views/NotFound.vue';
+import BuildingPage from '../views/BuildingPage.vue';
 import { loginApi } from '../firebase/Login-Service';
 
 Vue.use(VueRouter);
@@ -34,19 +35,19 @@ const routes = [
             },
             {
                 path: 'PortugueseProve',
-                component: CreateClass
+                component: BuildingPage
             },
             {
                 path: 'DigitalActivities',
-                component: CreateClass
+                component: BuildingPage
             },
             {
                 path: 'Help',
-                component: CreateClass
+                component: BuildingPage
             },
             {
                 path: 'Settings',
-                component: CreateClass
+                component: BuildingPage
             }
         ]
     },
