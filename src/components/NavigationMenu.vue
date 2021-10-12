@@ -36,7 +36,7 @@
                     </router-link>
                 </li>
                 <li class="nav-item">
-                    <button @click="out">
+                    <button class="btn-dark" @click="out">
                         Deslogar
                     </button>
                 </li>
@@ -76,21 +76,29 @@ export default {
     margin: 0 auto;
 }
 
-.navigation a {
+.navigation a,
+.navigation button {
     width: 93%;
     display: flex;
     align-items: center;
     padding: 15px 0 15px 25px;
     margin-bottom: 15px;
-}
-.navigation li img {
-    padding: 0 15px;
-}
-
-.navigation a {
     font-weight: bold;
     font-size: 16px;
     color: #cacaca;
+}
+.navigation .nav-item img {
+    padding: 0 15px;
+}
+
+.navigation button{
+    width: 100%;
+    border-radius:0 ;
+    color:white;
+}
+.navigation button:hover{
+    
+    color:var(--light-blue);
 }
 nav a.router-link-active {
     background-color: var(--light-blue);
