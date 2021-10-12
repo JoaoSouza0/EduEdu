@@ -3,9 +3,7 @@ import { auth } from '../firebase';
 
 export const loginApi = {
     createUser(email, password) {
-        createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-            console.log(userCredential);
-        });
+        createUserWithEmailAndPassword(auth, email, password).then();
     },
 
     signOut() {
