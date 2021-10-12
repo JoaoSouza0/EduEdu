@@ -2,7 +2,7 @@
     <section class="form-container">
         <form action="">
             <div class="avatar">
-                <img src="../assets/kids/form-kid.svg" class="profile-img" />
+                <img :src="image" class="profile-img" />
                 <label class="btn-light change-avatar" for="avatar">
                     Mudar Avatar
                 </label>
@@ -55,65 +55,78 @@
                     </div>
                 </div>
             </div>
-            <div class="checkbox-information">
-                <input v-model="autorization" type="checkbox" name="check" id="check" />
-                <label for="check"
-                    >Eu autorizo o EduEdu a coletar e processar os daos do meu filho(a) conforme a politica de
-                    privacidade</label
-                >
-            </div>
         </form>
-        <div class="button-container">
+        <div class="slots-container">
             <slot> </slot>
         </div>
     </section>
 </template>
 
 <script>
+import { api } from '../firebase/Students-Services';
 export default {
     name: 'StudentForm',
+    data() {
+        return {
+            image: '../assets/kids/form-kid.svg'
+        };
+    },
     computed: {
         name: {
             get() {
-                return this.$store.state.student.name;
+                return this.$store.state.Students.student.name;
             },
             set(value) {
-                this.$store.commit('UPDATE_STUDENT', { name: value });
+                this.$store.commit('Students/UPDATE_STUDENT', { name: value });
             }
         },
         school: {
             get() {
-                return this.$store.state.student.school;
+                return this.$store.state.Students.student.school;
             },
             set(value) {
-                this.$store.commit('UPDATE_STUDENT', { school: value });
+                this.$store.commit('Students/UPDATE_STUDENT', { school: value });
             }
         },
         yearSchool: {
             get() {
-                return this.$store.state.student.yearSchool;
+                return this.$store.state.Students.student.yearSchool;
             },
             set(value) {
-                this.$store.commit('UPDATE_STUDENT', { yearSchool: value });
+                this.$store.commit('Students/UPDATE_STUDENT', { yearSchool: value });
             }
         },
-        autorization: {
+        imageURL: {
             get() {
-                return this.$store.state.student.autorization;
+                return this.$store.state.Students.student.imageURL;
             },
             set(value) {
-                this.$store.commit('UPDATE_STUDENT', { autorization: value });
+                this.$store.commit('Students/UPDATE_STUDENT', { imageURL: value });
             }
         },
+        imageFile: {
+            get() {
+                return this.$store.state.Students.image;
+            },
+            set(value) {
+                this.$store.commit('Students/UPDATE_IMAGE', value);
+            }
+        }
     },
     methods: {
-        loadImg(e) {
+        async loadImg(e) {
             const fr = new FileReader();
             fr.onload = () => {
                 document.querySelector('.profile-img').src = fr.result;
             };
             fr.readAsDataURL(e.target.files[0]);
+            let file = e.target.files[0];
+            this.imageURL = `image/${file.name}`;
+            this.imageFile = file;
         }
+    },
+    async created() {
+        this.image = await api.downloadImageStorage('image/sr-goiaba.png_a47a90c6-267a-4425-8568-779f4ba50db3');
     }
 };
 </script>
@@ -134,7 +147,7 @@ export default {
 }
 
 form > div,
-.button-container {
+.slots-container {
     display: flex;
     width: 590px;
 }
@@ -260,25 +273,14 @@ input[type='range']::-webkit-slider-thumb {
     margin-top: -7px;
     box-shadow: 0px 2px 0px #1bb7db;
 }
-input[type='checkbox'] {
-    border: 2px solid #47cdff;
-    padding: 12px;
-    border-radius: 25px;
-}
 
-.year-information {
-    padding-bottom: 20px;
-}
-.button-container {
-    justify-content: center;
-    padding: 35px 0;
+.slots-container {
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 30px;
 }
 .year-information,
 .year-information p {
-    padding-bottom: 10px;
-}
-
-.checkbox-information {
     padding-bottom: 10px;
 }
 </style>
