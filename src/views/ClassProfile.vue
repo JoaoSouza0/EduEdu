@@ -1,20 +1,15 @@
 <template>
     <section style="width:100%">
         <FilterStudents />
-        <div>
-            <StudentsContainer :studentsYear="studentsArray" year="1" />
-        </div>
-        <div>
-            <StudentsContainer :studentsYear="studentsArray" year="2" />
-        </div>
-        <div>
-            <StudentsContainer :studentsYear="studentsArray" year="3" />
+        <div v-for="(filter, index) in filter" :key="index">
+            <StudentsContainer :filter="filter" :by="activeFilter" />
         </div>
     </section>
 </template>
 
 <script>
 import FilterStudents from '@/components/FilterStudents.vue';
+
 export default {
     name: 'ClassProfile',
     components: {
@@ -23,26 +18,41 @@ export default {
     },
     data() {
         return {
-            studentsArray: []
+            studentsArray: [],
+            filterYear: ['0', '1', '2', '3'],
+            filterbyName: [
+                {
+                    start: 'A',
+                    end: 'G'
+                },
+                {
+                    start: 'G',
+                    end: 'M'
+                },
+                {
+                    start: 'M',
+                    end: 'S'
+                },
+                {
+                    start: 'S',
+                    end: 'a'
+                }
+            ]
         };
     },
     computed: {
         url() {
             return this.$route;
-        }
-    },
-    methods: {
-        async getTest() {
-            const response = await fetch('http://localhost:3000/Students');
-            const response2 = await response.json();
-            this.studentsArray = response2;
         },
-        filterSchoolYears() {
-            return this.studentsArray.filter((item) => item.schoolYear === '1');
+        activeFilter() {
+            return this.$route.query.filter;
+        },
+        filter() {
+            if (this.activeFilter === 'name') {
+                return this.filterbyName;
+            }
+            return this.filterYear;
         }
-    },
-    created() {
-        this.getTest();
     }
 };
 </script>
