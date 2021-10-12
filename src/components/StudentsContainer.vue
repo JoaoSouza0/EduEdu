@@ -1,17 +1,11 @@
 <template>
-    <section>
-        <b>{{ year | schoolYear }}</b>
+    <section v-if="students.length">
+        <b v-if="labelName === '0'">Pré</b>
+        <b v-else>{{ labelName | schoolYear }}</b>
         <div class="student-container">
-            <div class="student-content" v-for="(student, index) in pagination" :key="index">
-                <div class="student-img">
-                    <img src="../assets/kids/carmen.png" alt="" />
-                </div>
-                <div class="information">
-                    <p class="name">{{ student.name }}</p>
-                    <p>{{ student.schoolYear | schoolYear }}</p>
-                </div>
+            <div class="student-content" v-for="student in pagination" :key="student.id">
+                <StudentContent :student="student" />
             </div>
-
             <PaginationStudents
                 class="pagination"
                 @paginate="spliceArray"
@@ -25,36 +19,61 @@
 
 <script>
 import PaginationStudents from '@/components/PaginationStudents.vue';
+import StudentContent from '@/components/StudentContent.vue';
+import { api } from '../firebase/Students-Services';
 
 export default {
     name: 'Students',
-    props: ['studentsYear', 'year'],
+    props: ['filter', 'by'],
     data() {
         return {
             studentsPerPage: 5,
-            contries: [],
             paginationStart: 0,
-            pagination: []
+            pagination: [],
+            students: [],
+            labelName: ''
         };
     },
     components: {
-        PaginationStudents
+        PaginationStudents,
+        StudentContent
     },
     computed: {
-        studentYear() {
-            const studentYear = this.studentsYear.filter((item) => item.schoolYear === this.year);
-            return studentYear;
-        },
         numberOfItens() {
             this.spliceArray(this.paginationStart);
-            return this.studentYear.length;
+            return this.students.length;
+        }
+    },
+    watch: {
+        filter() {
+            if (this.by === 'year') {
+                this.filterByYear(this.filter);
+            } else {
+                this.filterByName(this.filter);
+            }
         }
     },
     methods: {
         spliceArray(start) {
             this.paginationStart = start;
-            this.pagination = this.studentYear.slice(start, start + this.studentsPerPage);
+            this.pagination = this.students.slice(start, start + this.studentsPerPage);
+        },
+        async filterByYear(value) {
+            const data = await api.getFilteredCollectionData('Students', 'yearSchool', '==', value);
+            this.labelName = value;
+            this.students = data;
+        },
+        async filterByName({ start, end }) {
+            this.students = [];
+            const data = await api.getOrderedCollectionData('Students', 'name', start, end);
+            if (data.length) {
+                this.labelName = `${data[0].name[0]} a ${data[data.length - 1].name[0]}`;
+            }
+            this.students = data;
         }
+    },
+    async created() {
+        await this.filterByYear(this.filter);
     }
 };
 </script>
@@ -88,29 +107,6 @@ section {
     border: 1px solid #e1e1e1;
     box-shadow: 0px 4px 0px #c4c3c3ea;
     border-radius: 10px;
-}
-.student-img img {
-    border-radius: 10px;
-    width: 150px;
-}
-
-.information {
-    width: 150px;
-    padding: 10px 0;
-}
-
-.information .name {
-    font-family: 'Montserrat', sans-serif;
-    color: #616161;
-    font-weight: 800;
-    font-size: 16px;
-}
-
-.information p {
-    font-family: 'Montserrat';
-
-    font-size: 16px;
-    color: #616161;
 }
 
 .pagination {
