@@ -33,7 +33,7 @@ export default {
     name: 'LoginPage',
     data() {
         return {
-            modal: false,
+            modal: false
         };
     },
     components: { LoginForm, ConfirmPasswordComponent },
@@ -46,6 +46,14 @@ export default {
         },
         confirmPassWord() {
             return this.$store.state.Login.auth.confirmPassWord;
+        },
+        valid: {
+            get() {
+                return this.$store.state.Login.valid;
+            },
+            set(value) {
+                this.$store.commit('Login/UPDATE_VALID', value);
+            }
         }
     },
     methods: {
@@ -58,19 +66,23 @@ export default {
                 this.openModal();
                 this.$store.commit('Login/CLEAR_PROPS');
                 loginApi.createUser(this.email, this.password);
-            }
-            else{
-                this.warning = true
+            } else {
+                this.valid = false;
             }
         },
         async login() {
             if (this.email && this.password) {
-                const result = await loginApi.signIn(this.email, this.password); //true = usercrenital
+                const result = await loginApi.signIn(this.email, this.password);
+                //true = usercrenital
                 if (result.user) {
+                    this.valid = true;
                     this.$router.push({ name: 'ClassProfile' });
                 } else {
+                    this.valid = false;
                     console.log(result);
                 }
+            } else {
+                this.valid = false;
             }
         }
     }

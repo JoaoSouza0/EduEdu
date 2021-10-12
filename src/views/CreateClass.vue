@@ -41,8 +41,14 @@ export default {
     methods: {
         async submitForm() {
             if (this.autorization) {
-                await this.$store.dispatch('Students/createStudent', this.$store.state.Students.student);
-                this.warning = false;
+                const changeRoute = await this.$store.dispatch(
+                    'Students/createStudent',
+                    this.$store.state.Students.student
+                );
+                if (changeRoute) {
+                    this.warning = false;
+                    this.$router.push({ name: 'ClassProfile' });
+                }
             } else {
                 this.warning = true;
             }
