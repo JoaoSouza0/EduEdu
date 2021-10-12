@@ -4,6 +4,7 @@ import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import ClassProfile from '../views/ClassProfile.vue';
 import CreateClass from '../views/CreateClass.vue';
+import NotFound from '../views/NotFound.vue';
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,9 @@ const routes = [
         path: '/Home',
         name: 'Home',
         component: Home,
+        beforeEnter: (to, from, next) => {
+            
+        },
         children: [
             {
                 path: 'ClassProfile',
@@ -43,6 +47,11 @@ const routes = [
                 component: CreateClass
             }
         ]
+    },
+    {
+        path: '/NotFound',
+        name: 'NotFound',
+        component: NotFound
     }
 ];
 
