@@ -38,7 +38,7 @@ export default {
     }),
     watch: {
         seachStudent(nameStudent) {
-            this.searchStudent(nameStudent);
+            this.search(nameStudent);
         }
     },
     computed: {
@@ -59,13 +59,12 @@ export default {
             if (!(this.$route.query.filter === value))
                 await this.$router.push({ query: { ...this.router, filter: value } });
         },
-        async searchStudent(nameStudent) {
-            if (nameStudent) {
-                await this.$router.push({ query: { ...this.router, name: nameStudent } });
-            } else {
-                await this.$router.push({ query: {} });
-            }
+        async search(nameStudent) {
+            await this.$router.push({ query: { ...this.router, name: nameStudent } });
         }
+    },
+    created() {
+        this.$router.push({ query: { ...this.router, name:'' } });
     }
 };
 </script>

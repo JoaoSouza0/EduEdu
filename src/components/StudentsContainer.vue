@@ -3,7 +3,7 @@
         <b v-if="labelName === '0'">Pré</b>
         <b v-else>{{ labelName | schoolYear }}</b>
         <div class="student-container">
-            <div class="student-content" v-for="student in pagination" :key="student.id">
+            <div class="student-content" v-for="student in filtredStudents" :key="student.id">
                 <StudentContent :student="student" />
             </div>
             <PaginationStudents
@@ -42,6 +42,20 @@ export default {
         numberOfItens() {
             this.spliceArray(this.paginationStart);
             return this.students.length;
+        },
+        nameFilter() {
+            return this.$route.query.name;
+        },
+        filtredStudents() {
+            if (this.nameFilter.length > 2) {
+                const filterName = this.pagination.filter((item) => {
+                    let nameUpper = item.name.toUpperCase();
+
+                    return nameUpper.includes(this.nameFilter.toUpperCase());
+                });
+                return filterName;
+            }
+            return this.pagination;
         }
     },
     watch: {
