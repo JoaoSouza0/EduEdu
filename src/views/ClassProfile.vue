@@ -53,6 +53,9 @@ export default {
             }
             return this.filterYear;
         }
+    },
+    created() {
+        this.$route.query.filter = 'year';
     }
 };
 </script>
