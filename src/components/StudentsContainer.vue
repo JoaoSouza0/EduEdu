@@ -11,6 +11,7 @@
                 @paginate="spliceArray"
                 :paginationStart="paginationStart"
                 :itens-in-page="studentsPerPage"
+                :itensTotal="students.length"
                 :number-of-itens="numberOfItens"
             />
         </div>
@@ -41,18 +42,19 @@ export default {
     computed: {
         numberOfItens() {
             this.spliceArray(this.paginationStart);
-            return this.students.length;
+            return this.filtredStudents.length;
         },
         nameFilter() {
             return this.$route.query.name;
         },
         filtredStudents() {
             if (this.nameFilter.length > 2) {
-                const filterName = this.pagination.filter((item) => {
+                const filterName = this.students.filter((item) => {
                     let nameUpper = item.name.toUpperCase();
 
                     return nameUpper.includes(this.nameFilter.toUpperCase());
                 });
+                console.log(filterName);
                 return filterName;
             }
             return this.pagination;
@@ -73,6 +75,7 @@ export default {
             this.pagination = this.students.slice(start, start + this.studentsPerPage);
         },
         async filterByYear(value) {
+            this.students = [];
             const data = await api.getFilteredCollectionData('Students', 'yearSchool', '==', value);
             this.labelName = value;
             this.students = data;
