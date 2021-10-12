@@ -3,7 +3,7 @@
         <form action="">
             <div class="avatar">
                 <img :src="image" class="profile-img" />
-                <label class="btn-light change-avatar" for="avatar">
+                <label class="btn-light change-avatar" :class="{ 'warning-active': valid }" for="avatar">
                     Mudar Avatar
                 </label>
                 <input
@@ -18,18 +18,31 @@
             <div class="inputs">
                 <div>
                     <label for="name">Nome Completo</label>
-                    <input type="text" v-model="name" class="input-form" name="name" id="name" />
+                    <input
+                        type="text"
+                        :class="{ 'warning-active': valid }"
+                        v-model="name"
+                        class="input-form"
+                        name="name"
+                        id="name"
+                    />
                     <img class="icon-input" src="../assets/icons/icon_user.png" alt="" />
                 </div>
                 <div>
                     <label for="school">Escola</label>
-                    <input type="text" v-model="school" class="input-form" name="school" id="school" />
+                    <input
+                        type="text"
+                        v-model="school"
+                        :class="{ 'warning-active': valid }"
+                        class="input-form"
+                        name="school"
+                        id="school"
+                    />
                     <img class="icon-input" src="../assets/icons/icon_hat.png" alt="" />
                 </div>
             </div>
             <div class="school-information">
-                <div class="lottie" ref="lavContainer">
-                </div>
+                <div class="lottie" ref="lavContainer"></div>
                 <div class="student-information">
                     <label for="year-school">Ano Escolar</label>
                     <div class="input-range">
@@ -115,6 +128,9 @@ export default {
             set(value) {
                 this.$store.commit('Students/UPDATE_IMAGE', value);
             }
+        },
+        valid() {
+            return !this.$store.state.Students.valid;
         }
     },
     methods: {
@@ -142,7 +158,9 @@ export default {
         },
 
         async fetchLottie() {
-            const lottieFetch = await (await fetch('https://assets2.lottiefiles.com/packages/lf20_qaezgiux.json')).json();
+            const lottieFetch = await (
+                await fetch('https://assets2.lottiefiles.com/packages/lf20_qaezgiux.json')
+            ).json();
             return lottieFetch;
         }
     },
@@ -304,5 +322,9 @@ input[type='range']::-webkit-slider-thumb {
 .year-information,
 .year-information p {
     padding-bottom: 10px;
+}
+.warning-active {
+    color: red;
+    border: 1px solid red;
 }
 </style>

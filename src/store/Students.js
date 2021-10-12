@@ -14,7 +14,8 @@ const Students = {
             imageURL: null,
             autorization: false
         },
-        image: null
+        image: null,
+        valid: true
     },
     mutations: {
         UPDATE_STUDENT(state, payload) {
@@ -23,21 +24,40 @@ const Students = {
         UPDATE_IMAGE(state, payload) {
             state.image = payload;
         },
+        UPDATE_VALID(state, payload) {
+            state.valid = payload;
+        },
         CLEAR_PROPS(state) {
             state.student = { name: '', school: '', yearSchool: '0', autorization: false };
         }
     },
+    getters: {
+        validation(state) {
+            const valid =
+                state.student.name && state.student.school && state.student.autorization && state.student.imageURL;
+            return valid;
+        }
+    },
     actions: {
-        createStudent({ commit, state }, payload) {
-            const uuidFiles = uuidv4();
-            api.postCollection('Students', {
-                ...payload,
-                id: uuidFiles,
-                imageURL: `${state.student.imageURL}_${uuidFiles}`
-            });
-            api.uploadImageStorage(state.image, uuidFiles);
+        createStudent({ commit, state, getters }, payload) {
+            let condition = getters.validation;
 
-            commit('CLEAR_PROPS');
+            if (condition) {
+                const uuidFiles = uuidv4();
+
+                api.postCollection('Students', {
+                    ...payload,
+                    id: uuidFiles,
+                    imageURL: `${state.student.imageURL}_${uuidFiles}`
+                });
+
+                api.uploadImageStorage(state.image, uuidFiles);
+
+                commit('CLEAR_PROPS');
+                commit('UPDATE_VALID', true);
+            } else {
+                commit('UPDATE_VALID', false);
+            }
         }
     }
 };
