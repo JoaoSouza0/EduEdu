@@ -54,14 +54,16 @@ button {
     cursor: pointer;
 }
 
-.btn-dark {
+.btn-dark,
+.btn-light:hover {
     background: var(--light-blue);
     box-shadow: 0px 4px 0px var(--dark-blue);
     border-radius: 20px;
     border: none;
     color: #fff;
 }
-.btn-light {
+.btn-light,
+.btn-dark:hover {
     background: #ffffff;
     border: 1px solid var(--light-blue);
     box-shadow: 0px 4px 0px var(--dark-blue);
