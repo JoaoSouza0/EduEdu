@@ -1,8 +1,9 @@
 import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore/lite';
+import { getStorage } from 'firebase/storage';
+import { getAuth } from 'firebase/auth';
 
-import { getFirestore, collection } from 'firebase/firestore/lite';
-
-const firebaseConfig = {
+let firebaseConfig = {
     apiKey: 'AIzaSyDNsdnqSnW81ldumoEmsWyG5WvBHF494aQ',
     authDomain: 'eduedu-17192.firebaseapp.com',
     projectId: 'eduedu-17192',
@@ -14,5 +15,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-export const student = collection(db, 'Students');
+export const storage = getStorage(app);
+export const db = getFirestore(app);
+export const auth = getAuth(app);
