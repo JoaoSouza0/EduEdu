@@ -6,19 +6,23 @@
                 <form action="">
                     <div>
                         <label for="email">Email</label>
-                        <input type="text" name="email" id="email" />
+                        <input v-model="email" type="text" name="email" id="email" />
                         <img src="../assets/icons/icon_email.png" alt="" />
                     </div>
                     <div>
                         <label for="password">Senha</label>
-                        <input type="password" name="password" id="password" />
+                        <input v-model="password" type="password" name="password" id="password" />
                         <img src="../assets/icons/icon_password.svg" alt="" />
                     </div>
                 </form>
             </div>
             <div class="btn-container">
-                <button class="btn-dark" type="submit">Login</button>
-                <button class="btn-light" type="submit">Esqueci Senha</button>
+                <div>
+                    <button class="btn-dark" type="submit" @click="login">Login</button>
+                </div>
+                <div class="slot-container">
+                    <slot></slot>
+                </div>
             </div>
         </div>
         <div class="directive-container"></div>
@@ -26,19 +30,31 @@
 </template>
 
 <script>
-import { student } from '../firebase/index.js';
-import { getDocs } from 'firebase/firestore/lite';
-
 export default {
     name: 'LoginComponent',
-    methods: {
-        async getUsersData() {
-            const students = await getDocs(student);
-            console.log(students.docs.map((item) => item.data()));
+    computed: {
+        email: {
+            get() {
+                return this.$store.state.Login.auth.email;
+            },
+            set(value) {
+                this.$store.commit('Login/UPDATE_AUTH', { email: value });
+            }
+        },
+        password: {
+            get() {
+                return this.$store.state.Login.auth.password;
+            },
+            set(value) {
+                this.$store.commit('Login/UPDATE_AUTH', { password: value });
+            }
         }
     },
-    created() {
-        this.getUsersData();
+    methods: {
+        login() {
+
+         
+        }
     }
 };
 </script>
@@ -107,5 +123,12 @@ export default {
     font-size: 14px;
     padding: 17px 5px;
     cursor: pointer;
+}
+.slot-container {
+    display: flex;
+    justify-content: space-between;
+}
+.slot-container button {
+    width: 140px;
 }
 </style>
