@@ -28,7 +28,8 @@
                 </div>
             </div>
             <div class="school-information">
-                <div class="lottie"></div>
+                <div class="lottie" ref="lavContainer">
+                </div>
                 <div class="student-information">
                     <label for="year-school">Ano Escolar</label>
                     <div class="input-range">
@@ -64,13 +65,16 @@
 
 <script>
 import { api } from '../firebase/Students-Services';
+import lottie from 'lottie-web';
+/* import LottieAnimation from './LottieLastTest.vue';*/
 export default {
     name: 'StudentForm',
     data() {
         return {
-            image: '../assets/kids/form-kid.svg'
+            image: null
         };
     },
+    components: {},
     computed: {
         name: {
             get() {
@@ -123,9 +127,27 @@ export default {
             let file = e.target.files[0];
             this.imageURL = `image/${file.name}`;
             this.imageFile = file;
+        },
+
+        async lottie() {
+            let jsonData = await this.fetchLottie();
+            const ani = lottie.loadAnimation({
+                container: document.querySelector('.lottie'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                animationData: jsonData
+            });
+            ani.setSpeed(3);
+        },
+
+        async fetchLottie() {
+            const lottieFetch = await (await fetch('https://assets2.lottiefiles.com/packages/lf20_qaezgiux.json')).json();
+            return lottieFetch;
         }
     },
-    async created() {
+    async mounted() {
+        this.lottie();
         this.image = await api.downloadImageStorage('image/sr-goiaba.png_a47a90c6-267a-4425-8568-779f4ba50db3');
     }
 };
