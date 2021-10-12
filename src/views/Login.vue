@@ -1,12 +1,13 @@
 <template>
     <LoginComponent>
-        <button class="btn-light" type="submit" @click="out">Esqueci Senha</button>
+        <button class="btn-light" type="submit" >Esqueci Senha</button>
         <button class="btn-light" type="submit" @click="register">Create User</button>
     </LoginComponent>
 </template>
 
 <script>
 import LoginComponent from '@/components/LoginComponent.vue';
+import { loginApi } from '../firebase/Login-Service';
 
 export default {
     components: { LoginComponent },
@@ -23,7 +24,11 @@ export default {
         }
     },
     methods: {
-    
+        register() {
+            if (this.email && this.password) {
+                loginApi.createUser(this.email, this.password);
+            }
+        }
     },
     created() {}
 };

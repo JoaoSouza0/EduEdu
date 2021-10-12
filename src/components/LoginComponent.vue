@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { loginApi } from '../firebase/Login-Service';
+
 export default {
     name: 'LoginComponent',
     computed: {
@@ -51,9 +53,16 @@ export default {
         }
     },
     methods: {
-        login() {
-
-         
+        async login() {
+            if (this.email && this.password) {
+                const result = await loginApi.signIn(this.email, this.password); //true = usercrenital
+                if (result.user) {
+                    this.$router.push({ name: 'ClassProfile' });
+                }
+                else{
+                    console.log(result)
+                }
+            }
         }
     }
 };

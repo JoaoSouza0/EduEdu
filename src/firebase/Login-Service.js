@@ -2,37 +2,39 @@ import { signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndP
 import { auth } from '../firebase';
 
 export const loginApi = {
-    register(email, password) {
+    createUser(email, password) {
         createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
             console.log(userCredential);
         });
     },
 
     signOut() {
-        signOut(auth)
+        return signOut(auth)
             .then(() => {
-                this.$route.push({ name: '/' });
+                return true;
             })
             .catch((error) => {
-                console.log(error);
+                return error;
             });
     },
-    
-    checkUserIsLoggerd(callBack) {
+
+    async checkUserIsLogged(callback) {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                console.log('you Are Logged', user);
-                callBack();
+                callback();
             } else {
-                callBack({ name: 'NotFound' });
+                callback({ path: '/non-existing' });
             }
         });
     },
 
-    signIn(email, password) {
-        signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-            console.log('Voce Logou: ', userCredential);
-            // ...
-        });
+    async signIn(email, password) {
+        return await signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                return userCredential;
+            })
+            .catch((err) => {
+                return err;
+            });
     }
 };

@@ -35,14 +35,30 @@
                         Configurações
                     </router-link>
                 </li>
+                <li class="nav-item">
+                    <button @click="out">
+                        Deslogar
+                    </button>
+                </li>
             </ul>
         </nav>
     </div>
 </template>
 
 <script>
+import { loginApi } from '../firebase/Login-Service';
 export default {
-    name: 'NavigationMenu'
+    name: 'NavigationMenu',
+    methods: {
+        async out() {
+            const result = await loginApi.signOut();
+            if (result === true) {
+                this.$router.push({ path: '/' });
+            } else {
+                console.log(result);
+            }
+        }
+    }
 };
 </script>
 

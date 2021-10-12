@@ -5,6 +5,7 @@ import Login from '../views/Login.vue';
 import ClassProfile from '../views/ClassProfile.vue';
 import CreateClass from '../views/CreateClass.vue';
 import NotFound from '../views/NotFound.vue';
+import { loginApi } from '../firebase/Login-Service';
 
 Vue.use(VueRouter);
 
@@ -19,10 +20,11 @@ const routes = [
         name: 'Home',
         component: Home,
         beforeEnter: (to, from, next) => {
-            
+            loginApi.checkUserIsLogged(next);
         },
         children: [
             {
+                name: 'ClassProfile',
                 path: 'ClassProfile',
                 component: ClassProfile
             },
@@ -48,8 +50,9 @@ const routes = [
             }
         ]
     },
+
     {
-        path: '/NotFound',
+        path: '*',
         name: 'NotFound',
         component: NotFound
     }
