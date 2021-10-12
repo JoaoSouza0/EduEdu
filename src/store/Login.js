@@ -8,15 +8,20 @@ const Auth = {
     state: {
         auth: {
             email: null,
-            password: null
-        }
+            password: null,
+            confirmPassWord: null
+        },
+        valid: true
     },
     mutations: {
         UPDATE_AUTH(state, payload) {
             state.auth = Object.assign({}, state.auth, payload);
         },
+        UPDATE_VALID(state, payload) {
+            state.valid = payload;
+        },
         CLEAR_PROPS(state) {
-            state.auth = { email: null, password: null };
+            state.auth = { email: null, password: null, confirmPassWord: null };
         }
     },
     actions: {}

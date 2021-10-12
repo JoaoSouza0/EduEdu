@@ -28,7 +28,7 @@ const Students = {
             state.valid = payload;
         },
         CLEAR_PROPS(state) {
-            state.student = { name: '', school: '', yearSchool: '0', autorization: false };
+            state.student = { name: '', school: '', yearSchool: '0', autorization: false, imageURL: null };
         }
     },
     getters: {
@@ -55,8 +55,10 @@ const Students = {
 
                 commit('CLEAR_PROPS');
                 commit('UPDATE_VALID', true);
+                return true;
             } else {
                 commit('UPDATE_VALID', false);
+                return false;
             }
         }
     }

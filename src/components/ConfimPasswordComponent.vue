@@ -6,6 +6,7 @@
                     <div>
                         <label for="password">Confirma Senha</label>
                         <input
+                            :class="{ 'warning-active': valid }"
                             v-model="confirmPassword"
                             class="input"
                             type="password"
@@ -36,6 +37,14 @@ export default {
             set(value) {
                 this.$store.commit('Login/UPDATE_AUTH', { confirmPassWord: value });
             }
+        },
+        valid: {
+            get() {
+                return !this.$store.state.Login.valid;
+            },
+            set(value) {
+                this.$store.commit('Login/UPDATE_VALID', value );
+            }
         }
     }
 };
@@ -65,5 +74,8 @@ export default {
     position: absolute;
     right: 30px;
     top: 32px;
+}
+.warning-active {
+    border: 1px solid red;
 }
 </style>

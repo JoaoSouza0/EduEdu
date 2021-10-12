@@ -6,12 +6,24 @@
                 <form action="">
                     <div>
                         <label for="email">Email</label>
-                        <input v-model="email" type="text" name="email" id="email" />
+                        <input
+                            v-model="email"
+                            type="text"
+                            :class="{ 'warning-active': valid }"
+                            name="email"
+                            id="email"
+                        />
                         <img src="../assets/icons/icon_email.png" alt="" />
                     </div>
                     <div>
                         <label for="password">Senha</label>
-                        <input v-model="password" type="password" name="password" id="password" />
+                        <input
+                            v-model="password"
+                            type="password"
+                            :class="{ 'warning-active': valid }"
+                            name="password"
+                            id="password"
+                        />
                         <img src="../assets/icons/icon_password.svg" alt="" />
                     </div>
                 </form>
@@ -25,7 +37,6 @@
 </template>
 
 <script>
-
 export default {
     name: 'LoginComponent',
     computed: {
@@ -44,13 +55,15 @@ export default {
             set(value) {
                 this.$store.commit('Login/UPDATE_AUTH', { password: value });
             }
+        },
+        valid() {
+            return !this.$store.state.Login.valid;
         }
-    },
+    }
 };
 </script>
 
 <style scoped>
-
 .login-container-component {
     width: 370px;
     height: 520px;
@@ -90,5 +103,8 @@ export default {
     position: absolute;
     right: 30px;
     top: 32px;
+}
+.warning-active {
+    border: 1px solid red;
 }
 </style>
