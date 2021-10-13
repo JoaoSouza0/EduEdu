@@ -8,7 +8,7 @@
             <button class="btn-dark btn" v-if="paginationDownCondition" @click="paginationUp">
                 ⬇
             </button>
-            <p>Pagina final: {{ lastPage }}</p>
+            <p>Pagina Final: {{ lastPage }}</p>
         </div>
     </div>
 </template>

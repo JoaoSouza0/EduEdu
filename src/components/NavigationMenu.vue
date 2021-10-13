@@ -66,7 +66,7 @@ export default {
 .navigation-container {
     min-width: 350px;
     background-color: #ffff;
-    margin-right: 15px;
+    margin-right: 50px;
     box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
     min-height: 100vh;
 }
