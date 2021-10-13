@@ -106,7 +106,7 @@ section {
     width: 1250px;
 
     display: grid;
-    grid-template-columns: repeat(6, 1fr) 100px;
+    grid-template-columns: repeat(6, 1fr) 200px;
     gap: 40px;
 }
 .student-content {

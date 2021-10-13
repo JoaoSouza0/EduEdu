@@ -4,11 +4,11 @@
             <button class="btn-light btn" v-if="paginationUpCondition" @click="paginationDown">
                 ⬆
             </button>
-            <p>{{ currentPage }}</p>
+            <p>Pagina Atual: {{ currentPage }}</p>
             <button class="btn-dark btn" v-if="paginationDownCondition" @click="paginationUp">
                 ⬇
             </button>
-            <p>{{ lastPage }}</p>
+            <p>Pagina final: {{ lastPage }}</p>
         </div>
     </div>
 </template>
@@ -56,5 +56,6 @@ export default {
 
 .pagination p {
     text-align: center;
+    margin-bottom: 10px;
 }
 </style>
