@@ -64,8 +64,8 @@ export default {
         register() {
             if (this.email && this.password === this.confirmPassWord) {
                 this.openModal();
-                this.$store.commit('Login/CLEAR_PROPS');
                 loginApi.createUser(this.email, this.password);
+                this.$store.commit('Login/CLEAR_PROPS');
             } else {
                 this.valid = false;
             }

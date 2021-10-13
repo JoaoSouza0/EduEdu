@@ -1,9 +1,11 @@
-import { signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 
 export const loginApi = {
     createUser(email, password) {
-        createUserWithEmailAndPassword(auth, email, password).then();
+        createUserWithEmailAndPassword(auth, email, password).then((user) => {
+            console.log(user);
+        });
     },
 
     signOut() {
