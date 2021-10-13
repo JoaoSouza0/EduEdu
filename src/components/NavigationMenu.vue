@@ -6,32 +6,32 @@
         <nav class="navigation">
             <ul>
                 <li class="nav-item">
-                    <router-link to="/Home/ClassProfile">
-                        <img src="../../src/assets/icons/icon_face.png" alt="sas" />
+                    <router-link :to="{ name: 'ClassProfile', query: { filter: 'year', name: ' ' } }">
+                        <img src="../../src/assets/icons/icon_face.png" alt="" />
                         Perfil dos Alunos
                     </router-link>
                 </li>
                 <li class="nav-item">
                     <router-link to="/Home/PortugueseProve">
-                        <img src="../../src/assets/icons/icon_doc.png" alt="sas" />
+                        <img src="../../src/assets/icons/icon_doc.png" alt="" />
                         Prova de Português
                     </router-link>
                 </li>
                 <li class="nav-item">
                     <router-link to="/Home/DigitalActivities">
-                        <img src="../../src/assets/icons/icon_test.png" alt="sas" />
+                        <img src="../../src/assets/icons/icon_test.png" alt="" />
                         Atividades Digitais
                     </router-link>
                 </li>
                 <li class="nav-item">
                     <router-link to="/Home/Help">
-                        <img src="../../src/assets/icons/icon_help.png" alt="sas" />
+                        <img src="../../src/assets/icons/icon_help.png" alt="" />
                         Ajuda
                     </router-link>
                 </li>
                 <li class="nav-item">
                     <router-link to="/Home/Settings">
-                        <img src="../../src/assets/icons/icon_settings.png" alt="sas" />
+                        <img src="../../src/assets/icons/icon_settings.png" alt="" />
                         Configurações
                     </router-link>
                 </li>
@@ -66,7 +66,7 @@ export default {
 .navigation-container {
     min-width: 350px;
     background-color: #ffff;
-    margin-right: 5px;
+    margin-right: 15px;
     box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
     min-height: 100vh;
 }
@@ -91,14 +91,13 @@ export default {
     padding: 0 15px;
 }
 
-.navigation button{
+.navigation button {
     width: 100%;
-    border-radius:0 ;
-    color:white;
+    border-radius: 0;
+    color: white;
 }
-.navigation button:hover{
-    
-    color:var(--light-blue);
+.navigation button:hover {
+    color: var(--light-blue);
 }
 nav a.router-link-active {
     background-color: var(--light-blue);

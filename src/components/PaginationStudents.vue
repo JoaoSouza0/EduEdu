@@ -36,7 +36,6 @@ export default {
     },
     methods: {
         paginationDown() {
-            console.log(this.numberOfItens);
             this.$emit('paginate', this.paginationStart - this.itensInPage);
         },
         paginationUp() {

@@ -54,7 +54,6 @@ export default {
 
                     return nameUpper.includes(this.nameFilter.toUpperCase());
                 });
-                console.log(filterName);
                 return filterName;
             }
             return this.pagination;
